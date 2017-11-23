@@ -81,7 +81,7 @@ object FunctionalAssignment {
   def fib(n: Int): Int = n match {
     case `n` if n <= 0 => 0
     case `n` if n <= 2 => 1
-    case _ => fib(n - 1) + fib(n - 2)
+    case _ => fib(n - 2) + fib(n - 1)
   }
 
   /**
@@ -95,8 +95,8 @@ object FunctionalAssignment {
     def test(i: Int): Boolean = {
       if (i >= as.length - 1)
         true
-      else if (gt(as(i), as(i + 1)))
-        test(i+1)
+      else if (gt (as(i), as(i + 1)))
+        test(i + 1)
       else false
     }
     test(0)
@@ -123,12 +123,12 @@ object FunctionalAssignment {
 
     def sum(list: MyList[Int]): Int = list match {
       case MyNil => 0
-      case Cons(h,t) => h + sum(t)
+      case Cons(h, t) => h + sum(t)
     }
 
     def product(list: MyList[Int]): Int = list match {
       case MyNil => 0
-      case Cons(h,t) => if (h==0) product(t) else h*product(t)
+      case Cons(h, t) => if (h==0) product(t) else h * product(t)
     }
 
 
