@@ -2,6 +2,10 @@ package at.fhj.swengb.assignments.tree
 
 import javafx.scene.paint.Color
 
+import at.fhj.swengb.assignments.tree
+import at.fhj.swengb.assignments.tree.Graph.colorMap
+
+import scala.collection.immutable.Stream.Empty
 import scala.math.BigDecimal.RoundingMode
 import scala.util.Random
 
@@ -23,7 +27,7 @@ object Graph {
   /**
     * creates a random tree
     *
-    * @param root
+    * @param root //
     * @return
     */
   def randomTree(root: Pt2D): Tree[L2D] =
@@ -39,7 +43,8 @@ object Graph {
     * @param convert a converter function
     * @return
     */
-  def traverse[A, B](tree: Tree[A])(convert: A => B): Seq[B] =  ???
+  def traverse[A, B](tree: Tree[A])(convert: A => B): Seq[B] = ???
+
 
 
   /**
@@ -61,12 +66,15 @@ object Graph {
               treeDepth: Int,
               factor: Double = 0.75,
               angle: Double = 45.0,
-              colorMap: Map[Int, Color] = Graph.colorMap): Tree[L2D] = ???
+              colorMap: Map[Int, Color] = Graph.colorMap): Tree[L2D] = {
+
+    require(treeDepth <= (colorMap.size-1))
+
+
+    Node(L2D(start, initialAngle, length, colorMap(0)))
+  }
 
 }
-
-
-
 
 object L2D {
 
