@@ -8,9 +8,9 @@
 | Hours
 | Description
 
-| 29.11.17
-| 1
-| Review of this and that
+| 06.12.2017
+| 2
+| Review of Scene Builder and starting with the Design
 
 | 30.11.17
 | 5
