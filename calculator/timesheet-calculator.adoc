@@ -11,12 +11,16 @@
 | 2
 | Review of Scene Builder and starting with the Design
 
-| 30.11.17
-| 5
-| implemented css
-
-| 11.07.17
+| 08.12.17
 | 2
-| fixed bugs
+| Trying to understand the given code
+
+| 08.12.17
+| 0.5
+| Researching how to use css
+
+| 08.12.17
+| 4
+| Implement CSS and redesign Scene Builder
 
 |===

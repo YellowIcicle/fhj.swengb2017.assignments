@@ -1,10 +1,70 @@
 // see https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
 // see http://fxexperience.com/2011/12/styling-fx-buttons-with-css/
 
-#calculator {
-	-fx-background-color:#FFE4e1 ;
+.background {
+    -fx-background-color: linear-gradient(#E8E8E8, #DFDFDF);
+    -fx-padding: 5 5 5 5;
 }
 
-#calculator .grey {
-	-fx-background-color:#ff00ff;
+.label {
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1px 0;
+    -fx-text-alignment: right;
+    -fx-alignment: center-right;
+    -fx-font-size: 20px;
+}
+
+.gridpanelabelhigh {
+    -fx-padding: 5 3 0 3;
+}
+
+.gridpanelabelmiddle {
+    -fx-padding: 0 3 0 3;
+}
+
+.gridpanelabelbottom {
+    -fx-padding: 0 3 25 3;
+}
+
+.numbers {
+	-fx-background-color: linear-gradient(#F2F2F2, #E6E6E6);
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+	-fx-text-fill: #000000;
+	-fx-font-size: 17px;
+	-fx-background-radius: 0, 0;
+}
+
+.numbers:hover {
+    -fx-background-color: linear-gradient(#9C9C9C, #8D8D8D);
+    -fx-text-fill: #FFFFFF;
+}
+
+.operations {
+    -fx-background-color: linear-gradient(#9C9C9C, #8D8D8D);
+    	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    	-fx-text-fill: #FFFFFF;
+    	-fx-font-size: 17px;
+    	-fx-background-radius: 0, 0;
+}
+
+.operations:hover {
+    -fx-background-color: linear-gradient(#F2F2F2, #E6E6E6);
+    -fx-text-fill: #000000;
+}
+
+.control {
+    -fx-background-color: linear-gradient(#8D8D8D, #767676);
+    	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    	-fx-text-fill: #ffffff;
+    	-fx-font-size: 20px;
+    	-fx-background-radius: 0, 0;
+}
+
+.control:hover {
+    -fx-background-color: linear-gradient(#F2F2F2, #E6E6E6);
+    -fx-text-fill: #000000;
+}
+
+.gridpane {
+    -fx-padding: 3 3 3 3;
 }
