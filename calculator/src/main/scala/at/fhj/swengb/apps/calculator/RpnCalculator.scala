@@ -15,8 +15,16 @@ object RpnCalculator {
     * @return
     */
   def apply(s: String): Try[RpnCalculator] = {
-    ??? //if (s == "") Try(RpnCalculator())
-  }
+    if (s == "") Try(RpnCalculator()) // <-- not copied
+    else {
+      /*val stack: List[Op] = s.split(' ').map(e => Op(e)).toList
+      var operation: Try[RpnCalculator] = Try(RpnCalculator())
+      stack.foreach(e => operation = operation.get.push(e))
+      operation  <-- copied*/
+      ???
+    }
+    }
+
 
 }
 

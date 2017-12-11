@@ -7,7 +7,7 @@
 | Hours
 | Description
 
-| 06.12.2017
+| 06.12.17
 | 2
 | Review of Scene Builder and starting with the Design
 
@@ -21,6 +21,10 @@
 
 | 08.12.17
 | 4
-| Implement CSS and redesign Scene Builder
+| Implement CSS and redesign Calculator in Scene Builder
+
+| 11.12.17
+| 1.5
+| Again trying to code functions and finally giving up
 
 |===
