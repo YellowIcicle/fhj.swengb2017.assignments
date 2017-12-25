@@ -21,4 +21,3 @@ case class Vessel(name: NonEmptyString, startPos: BattlePos, direction: Directio
     }
 
 }
-
