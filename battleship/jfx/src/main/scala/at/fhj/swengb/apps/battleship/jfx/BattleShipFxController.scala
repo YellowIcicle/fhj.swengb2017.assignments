@@ -35,7 +35,6 @@ class BattleShipFxController extends Initializable {
   @FXML def saveGame(): Unit = {
     try {
       val FileChooser3000 = new FileChooser();
-      FileChooser3000.setTitle("Select path to store")
 
       //Set Extention filter
       val extensionFilter: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
@@ -59,7 +58,6 @@ class BattleShipFxController extends Initializable {
   @FXML def loadGame(): Unit = {
     try {
       val chooser = new FileChooser();
-      chooser.setTitle("Select path to load BattleshipGame")
 
       //Set Extention filter
       val extensionFilter: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
