@@ -27,19 +27,22 @@ class BattleShipFxController extends Initializable {
     */
   @FXML private var log: TextArea = _
 
-  @FXML def newGame(): Unit = startNewGame
+  @FXML def newGame(): Unit = {
+    appendLog("A new game has started")
+    init(createNewGame(), List())
+  }
 
   @FXML def saveGame(): Unit = {
     try {
-      val chooser = new FileChooser();
-      chooser.setTitle("Select path to store")
+      val FileChooser3000 = new FileChooser();
+      FileChooser3000.setTitle("Select path to store")
 
       //Set Extention filter
       val extensionFilter: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
-      chooser.getExtensionFilters.add(extensionFilter)
+      FileChooser3000.getExtensionFilters.add(extensionFilter)
 
       //Handle selected file
-      var selectedFile: File = chooser.showSaveDialog(BattleShipFxApp.rootStage)
+      var selectedFile: File = FileChooser3000.showSaveDialog(BattleShipFxApp.rootStage)
 
       if ( selectedFile != null ) {
         //Save game state
@@ -49,7 +52,7 @@ class BattleShipFxController extends Initializable {
 
       }
     } catch {
-      case e: Exception => appendLog("ERROR - Saveing failed: " + e.getMessage)
+      case e: Exception => appendLog("Failure while saving: " + e.getMessage)
     }
   }
 
@@ -72,7 +75,7 @@ class BattleShipFxController extends Initializable {
         init(battleShipGame, clickedPos)
       }
     } catch {
-      case e: Exception => appendLog("ERROR - Loading failed: " + e.getMessage)
+      case e: Exception => appendLog("Failure while loading: " + e.getMessage)
     }
   }
 
@@ -87,7 +90,7 @@ class BattleShipFxController extends Initializable {
 
     //Print some fancy output to user
     if (currVal == clickHistorySlider.getMax.toInt) {
-      appendLog("HISTORY VIEW DEACTIVATED")
+      appendLog("Backlog mode")
       lbHeader.setText("Battleship")
       simModeActive=false
       /*We are in the present now again, which means that the buttons get active again
@@ -96,8 +99,8 @@ class BattleShipFxController extends Initializable {
        */
       game.clickedPositions = List()
     } else {
-      appendLog("HISTORY VIEW ACTIVATED (" + simClickPos.size + ")")
-      lbHeader.setText("Battleship (History)")
+      appendLog("Backlog mode (" + simClickPos.size + ")")
+      lbHeader.setText("Backlog")
       simModeActive=true
     }
 
@@ -116,7 +119,7 @@ class BattleShipFxController extends Initializable {
     game.simulateClicksOnClickedPositions(simClickPos)
   }
 
-  override def initialize(url: URL, rb: ResourceBundle): Unit = startNewGame()
+  override def initialize(url: URL, rb: ResourceBundle): Unit = newGame()
 
   private def getCellHeight(y: Int): Double =
     battleGroundGridPane.getRowConstraints.get(y).getPrefHeight
@@ -153,10 +156,6 @@ class BattleShipFxController extends Initializable {
     updateSlider(simulateClicks.size)
   }
 
-  private def startNewGame(): Unit = {
-    appendLog("New game started.")
-    init(createNewGame(), List())
-  }
 
   private def createNewGame(): BattleShipGame = {
     val field = BattleField(10, 10, Fleet(FleetConfig.Standard))

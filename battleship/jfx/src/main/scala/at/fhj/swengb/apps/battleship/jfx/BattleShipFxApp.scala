@@ -33,7 +33,7 @@ class BattleShipFxApp extends Application {
     triedRoot match {
       case Success(root) =>
         stage.setScene(new Scene(root))
-        stage.setTitle("BattleshipGame by Alexander Hödl/ Gregor Fernbach (IMA16 - SWENGB)")
+        stage.setTitle("Battleship the Game")
         setSkin(stage,fxml,css)
         stage.setResizable(false)
         stage.show()
