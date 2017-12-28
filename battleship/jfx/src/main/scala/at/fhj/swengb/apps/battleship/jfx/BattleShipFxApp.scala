@@ -24,28 +24,23 @@ class BattleShipFxApp extends Application {
   val css = "/at/fhj/swengb/apps/battleship/jfx/battleshipfx.css"
 
   val triedRoot = Try(FXMLLoader.load[Parent](getClass.getResource(fxml)))
+  def setSkin(stage: Stage, fxml: String, css: String): Boolean = {
+    stage.setScene(new Scene(new FXMLLoader(getClass.getResource(fxml)).load[Parent]()))
+    stage.getScene.getStylesheets.clear()
+    stage.getScene.getStylesheets.add(css)
+  }
 
   override def start(stage: Stage): Unit = {
-
-    //Set rootStage
     BattleShipFxApp.rootStage = stage
-
     triedRoot match {
       case Success(root) =>
+        stage.setResizable(false)
         stage.setScene(new Scene(root))
         stage.setTitle("Battleship the Game")
         setSkin(stage,fxml,css)
-        stage.setResizable(false)
         stage.show()
       case Failure(e) => e.printStackTrace()
     }
-  }
-
-  def setSkin(stage: Stage, fxml: String, css: String): Boolean = {
-    val scene = new Scene(new FXMLLoader(getClass.getResource(fxml)).load[Parent]())
-    stage.setScene(scene)
-    stage.getScene.getStylesheets.clear()
-    stage.getScene.getStylesheets.add(css)
   }
 
 }
