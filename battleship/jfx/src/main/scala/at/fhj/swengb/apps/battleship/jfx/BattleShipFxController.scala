@@ -19,7 +19,7 @@ class BattleShipFxController extends Initializable {
   private var game: BattleShipGame = _
 
   @FXML private var battleGroundGridPane: GridPane = _
-  @FXML private var clickHistorySlider: Slider = _
+  @FXML private var SliderState: Slider = _
   @FXML private var lbHeader: Label = _
 
   /**
@@ -27,79 +27,56 @@ class BattleShipFxController extends Initializable {
     */
   @FXML private var log: TextArea = _
 
+  //Creating a new game and resetting all states
   @FXML def newGame(): Unit = {
     appendLog("A new game has started")
     init(createNewGame(), List())
   }
 
   @FXML def saveGame(): Unit = {
-    try {
+      //Using FileChooser for accessing our files
       val FileChooser3000 = new FileChooser();
-
-      //Set Extention filter
-      val extensionFilter: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
-      FileChooser3000.getExtensionFilters.add(extensionFilter)
-
-      //Handle selected file
-      var selectedFile: File = FileChooser3000.showSaveDialog(BattleShipFxApp.rootStage)
-
-      if ( selectedFile != null ) {
-        //Save game state
-        val protoBattleShipGame = BattleShipProtocol.convert(game)
-        protoBattleShipGame.writeTo(Files.newOutputStream(Paths.get(selectedFile.getAbsolutePath)))
-        appendLog("Saved Game-state: [" + selectedFile.getAbsolutePath + "]")
-
-      }
-    } catch {
-      case e: Exception => appendLog("Failure while saving: " + e.getMessage)
-    }
+      //Filtering on our protobuf files with the ending .bin
+      val ProtoFilter3000: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
+      FileChooser3000.getExtensionFilters.add(ProtoFilter3000)
+      //Converting and saving
+      val FileSaver3000: File = FileChooser3000.showSaveDialog(BattleShipFxApp.rootStage)
+      BattleShipProtocol.convert(game).writeTo(Files.newOutputStream(Paths.get(FileSaver3000.getAbsolutePath)))
+      appendLog("Saved Game")
   }
 
   @FXML def loadGame(): Unit = {
-    try {
-      val chooser = new FileChooser();
-
-      //Set Extention filter
-      val extensionFilter: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
-      chooser.getExtensionFilters.add(extensionFilter)
-
-      //Handle selected file
-      var selectedFile: File = chooser.showOpenDialog(BattleShipFxApp.rootStage)
-      if ( selectedFile != null ) {
-        //Load game state
-        val (battleShipGame, clickedPos) = loadGame(selectedFile.getAbsolutePath)
-        //Reset text area and init game
-        log.setText("Load Game-state: [" + selectedFile.getAbsolutePath + "]")
-        init(battleShipGame, clickedPos)
-      }
-    } catch {
-      case e: Exception => appendLog("Failure while loading: " + e.getMessage)
-    }
+      val FileChooser3000 = new FileChooser();
+      val ProtoFilter3000: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
+      FileChooser3000.getExtensionFilters.add(ProtoFilter3000)
+      val FileLoader3000: File = FileChooser3000.showOpenDialog(BattleShipFxApp.rootStage)
+      val (clickedPos, battleShipGame) = loadGame(FileLoader3000.getAbsolutePath)
+      //Resetting log
+      log.setText("")
+      init(clickedPos, battleShipGame)
+      appendLog("Loaded Game")
   }
 
   @FXML def onSliderChanged(): Unit = {
-    val currVal = clickHistorySlider.getValue.toInt
-    var simModeActive: Boolean = true
-
-    //Current List of clicks to simulate
-    //Reverse clickedPos List.. Take required list and reverse it again!
-    val simClickPos: List[BattlePos] = game.clickedPositions.reverse.take(currVal).reverse
+    val TimeOnSlider = SliderState.getValue.toInt
+    var PastChecker: Boolean = true
+    val PastState: List[BattlePos] = game.GameState.takeRight(TimeOnSlider)
 
 
     //Print some fancy output to user
-    if (currVal == clickHistorySlider.getMax.toInt) {
+    if (TimeOnSlider == SliderState.getMax.toInt) {
       appendLog("Backlog mode")
       lbHeader.setText("Battleship")
-      simModeActive=false
+      PastChecker=false
       /*We are in the present now again, which means that the buttons get active again
         In this case we add the clicks to the list, that means we would have them tice.
         Remove them here now - they get inserted with simulateClicks anyway...
        */
-      game.clickedPositions = List()
+      game.GameState = List()
     } else {
-      appendLog("Backlog mode (" + simClickPos.size + ")")
+      appendLog("Backlog mode (" + PastState.size + ")")
       lbHeader.setText("Backlog")
-      simModeActive=true
+      PastChecker=true
     }
 
     //If we are simulation mode, deactivate buttons
@@ -109,12 +86,12 @@ class BattleShipFxController extends Initializable {
       c.init()
       //Deactivate Buttons if we're in the history data!
       //History is not changeable, we just can learn from history!
-      c.setDisable(simModeActive)
+      c.setDisable(PastChecker)
     }
 
 
     //Now simulate all already clicked positions
-    game.simulateClicksOnClickedPositions(simClickPos)
+    game.simulateClicksOnClickedPositions(PastState)
   }
 
   override def initialize(url: URL, rb: ResourceBundle): Unit = newGame()
@@ -149,7 +126,7 @@ class BattleShipFxController extends Initializable {
 
     //Reset all previous clicked positions
     //simulate all already clicked positions and update GUI-Slider!
-    g.clickedPositions = List()
+    g.GameState = List()
     g.simulateClicksOnClickedPositions(simulateClicks)
     updateSlider(simulateClicks.size)
   }
@@ -179,14 +156,14 @@ class BattleShipFxController extends Initializable {
       appendLog,
       updateSlider)
 
-    battleShipGame.clickedPositions = List()
+    battleShipGame.GameState = List()
 
-    (battleShipGame, loadedBattleShipGame.clickedPositions)
+    (battleShipGame, loadedBattleShipGame.GameState)
   }
 
   def updateSlider(maxClicks: Int): Unit = {
-    clickHistorySlider.setMax(maxClicks)
-    clickHistorySlider.setValue(maxClicks)
+    SliderState.setMax(maxClicks)
+    SliderState.setValue(maxClicks)
   }
 
 

@@ -24,7 +24,7 @@ object BattleShipProtocol {
 
     //Convert set of BattleBos to Protobuf clicked positions add add it
     val clickedPos =
-      g.clickedPositions.map(e => convert(e))
+      g.GameState.map(e => convert(e))
     clickedPos.foreach(e => protoBattleField.addClickedPositions(e))
 
     //Build battlefield and write to file
@@ -48,7 +48,7 @@ object BattleShipProtocol {
       (e => e.toDouble),
       (e => ()),
       (e => ()))
-    game.clickedPositions = clickedPos
+    game.GameState = clickedPos
 
     //return game
     game

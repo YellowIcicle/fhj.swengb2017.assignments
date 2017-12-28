@@ -40,7 +40,7 @@ object BattleshipGameGen {
       (x => x.toDouble),
       (x => ()),
       (x => ()))
-    game.clickedPositions = clickedPos
+    game.GameState = clickedPos
     game
   }
 }

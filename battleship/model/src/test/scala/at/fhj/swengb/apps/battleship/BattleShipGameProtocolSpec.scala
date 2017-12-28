@@ -18,7 +18,7 @@ class BattleShipProtocolSpec extends WordSpecLike {
             BattleShipProtocol.convert(BattleShipProtocol.convert(expected))
           //Make no sense to declare global functions just to test whole BattleShipGame object.
           actual.battleField == expected.battleField
-          actual.clickedPositions == expected.clickedPositions
+          actual.GameState == expected.GameState
         }
       })
     }

@@ -25,7 +25,7 @@ case class BattleShipGame(battleField: BattleField,
     * Contains all already clicked positions.
     * Array keeps sorting...
     */
-  var clickedPositions: List[BattlePos] = List();
+  var GameState: List[BattlePos] = List();
 
   /**
     * We don't ever change cells, they should be initialized only once.
@@ -49,10 +49,10 @@ case class BattleShipGame(battleField: BattleField,
   //Adds a new Position to clicked set
   def updateClickedPositions(pos: BattlePos): Unit = {
     //We keep already clicked positions awell!
-    clickedPositions = pos :: clickedPositions
+    GameState = pos :: GameState
 
     //Update Slider aswell
-    updateSlider(clickedPositions.size)
+    updateSlider(GameState.size)
   }
 
   //Simulates click for all positions in list
