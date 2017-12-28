@@ -118,7 +118,7 @@ class BattleShipFxController extends Initializable {
       LogAdder3000("Reviewing Past")
     } else {
       log.setText("")
-      Title.setText("Battleship")
+      Title.setText("BATTLESHIP")
       PastChecker = false
       Game.GameState = List()
       LogAdder3000("Back to Present")
