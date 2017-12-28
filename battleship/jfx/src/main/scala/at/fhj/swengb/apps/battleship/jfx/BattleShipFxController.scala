@@ -18,23 +18,14 @@ class BattleShipFxController extends Initializable {
 
   private var game: BattleShipGame = _
 
-  def LogAdder3000(text: String): Unit = log.appendText(text + "\n")
-
   override def initialize(url: URL, rb: ResourceBundle): Unit = newGame()
-
-  def HeightReader3000(height: Int): Int = battleGroundGridPane.getRowConstraints.get(height).getPrefHeight.toInt
-
   def WidthReader3000(width: Int): Int = battleGroundGridPane.getColumnConstraints.get(width).getPrefWidth.toInt
-
-
+  def HeightReader3000(height: Int): Int = battleGroundGridPane.getRowConstraints.get(height).getPrefHeight.toInt
+  def LogAdder3000(text: String): Unit = log.appendText(text + "\n")
   /**
-    * Create a new game.
-    *
-    * This means
-    *
-    * - resetting all cells to 'empty' state
-    * - placing your ships at random on the battleground
-    *
+    * Creating a new game means:
+    * - placing Ships on the battlefield
+    * - resetting cells
     */
   def init(g: BattleShipGame, simulateClicks: List[BattlePos]): Unit = {
     //Initialize BattleShipGame
