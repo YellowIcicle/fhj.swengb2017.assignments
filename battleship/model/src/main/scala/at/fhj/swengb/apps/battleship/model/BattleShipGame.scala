@@ -69,7 +69,7 @@ case class BattleShipGame(battleField: BattleField,
     for (p <- pos) {
       //There is just one, we take the risc
       val fxCell: BattleFxCell = cells.filter(e => e.pos.equals(p)).head
-      fxCell.handleMouseClick()
+      fxCell.Clicker3000()
     }
   }
 

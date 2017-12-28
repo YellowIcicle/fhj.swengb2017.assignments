@@ -22,8 +22,6 @@ case class BattleFxCell(pos: BattlePos,
   setOnMouseClicked(e => {
     if(!isDisable)
       upClickedPos(pos)
-
-
     someVessel match {
       case None =>
         log(s"Commander, you missed the enemy fleet!")
@@ -34,11 +32,9 @@ case class BattleFxCell(pos: BattlePos,
     }
   })
 
-  def handleMouseClick() = {
+  def Clicker3000() = {
     if(!isDisable)
       upClickedPos(pos)
-
-
     someVessel match {
       case None =>
         log(s"Commander, you missed the enemy fleet!")
