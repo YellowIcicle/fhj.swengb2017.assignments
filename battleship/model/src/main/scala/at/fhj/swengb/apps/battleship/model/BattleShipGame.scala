@@ -56,7 +56,7 @@ case class BattleShipGame(battleField: BattleField,
   }
 
   //Simulates click for all positions in list
-  def simulateClicksOnClickedPositions(pos: List[BattlePos]): Unit = {
+  def RebuildGame(pos: List[BattlePos]): Unit = {
 
     /*
     We have to iterate to get the correct sequence.
