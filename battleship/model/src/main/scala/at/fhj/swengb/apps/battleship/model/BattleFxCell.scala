@@ -16,28 +16,25 @@ case class BattleFxCell(pos: BattlePos,
   extends Rectangle(width, height) {
 
   def init(): Unit = {
-
     setFill(Color.DARKBLUE)
-
-    /* Deactivate test mode
-    if (someVessel.isDefined) {
-      setFill(Color.YELLOWGREEN)
-    } else {
-      setFill(Color.DARKBLUE)
-    }
-    */
   }
 
   setOnMouseClicked(e => {
-    handleMouseClick
+    if(!isDisable)
+      upClickedPos(pos)
+
+
+    someVessel match {
+      case None =>
+        log(s"Commander, you missed the enemy fleet!")
+        setFill(Color.MEDIUMAQUAMARINE)
+      case Some(v) =>
+        fn(v, pos)
+        setFill(Color.RED)
+    }
   })
 
   def handleMouseClick() = {
-    /*IF Button is disabled, we are in simulation mode
-    in this case we're not allowed to add position to clickedPos-List
-    because click is already there...
-    Otherwhise, add click to position Lits
-     */
     if(!isDisable)
       upClickedPos(pos)
 
