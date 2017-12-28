@@ -74,7 +74,7 @@ case class BattleShipGame(battleField: BattleField,
   }
 
   def updateGameState(vessel: Vessel, pos: BattlePos): Unit = {
-    log("Vessel " + vessel.name.value + " was hit at position " + pos)
+    log(vessel.name.value + "was hit!")
 
     if (hits.contains(vessel)) {
       // this code is executed if vessel was already hit at least once
@@ -96,15 +96,15 @@ case class BattleShipGame(battleField: BattleField,
       hits(vessel).foreach(p => log(p.toString))
 
       if (oldPos.contains(pos)) {
-        log("Position was triggered two times.")
+        log("Commander, you already bombed this area!")
       }
 
       if (vessel.occupiedPos == hits(vessel)) {
-        log(s"Ship ${vessel.name.value} was destroyed.")
+        log(s"${vessel.name.value} annihilated!")
         sunkShips = sunkShips + vessel
 
         if (battleField.fleet.vessels == sunkShips) {
-          log("Game Over")
+          log("GAME OVER!")
         }
       }
 

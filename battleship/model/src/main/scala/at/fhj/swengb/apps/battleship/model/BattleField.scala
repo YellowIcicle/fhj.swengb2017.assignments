@@ -6,6 +6,9 @@ import scala.util.Random
   * Denotes the size of our region of interest
   */
 case class BattleField(width: Int, height: Int, fleet: Fleet) {
+  val Positions: Set[BattlePos] = (for {x <- 0 until width
+                                        y <- 0 until height} yield BattlePos(x, y)).toSet
+  val availablePos: Set[BattlePos] = Positions -- fleet.occupiedPositions
 
   /**
     * Adds vessel at a random, free position in the battlefield. if no position could be found,
@@ -35,9 +38,6 @@ case class BattleField(width: Int, height: Int, fleet: Fleet) {
     Iterator3000(false, availablePos, this)
 
   }
-  val Positions: Set[BattlePos] = (for {x <- 0 until width
-                                        y <- 0 until height} yield BattlePos(x, y)).toSet
-  val availablePos: Set[BattlePos] = Positions -- fleet.occupiedPositions
 }
 
 object BattleField {
