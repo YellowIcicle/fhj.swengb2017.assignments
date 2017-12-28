@@ -80,8 +80,8 @@ object BattleShipProtocol {
       .setStartPos(
         Position
           .newBuilder()
-          .setX(vessel.startPos.x)
-          .setY(vessel.startPos.y)
+          .setX(vessel.InitPosition.x)
+          .setY(vessel.InitPosition.y)
           .build())
       .build()
   }
