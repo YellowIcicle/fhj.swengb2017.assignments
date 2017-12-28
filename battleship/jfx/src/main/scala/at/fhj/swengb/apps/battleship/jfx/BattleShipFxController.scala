@@ -11,7 +11,16 @@ import javafx.stage.FileChooser
 import javafx.stage.FileChooser.ExtensionFilter
 
 import at.fhj.swengb.apps.battleship.BattleShipProtocol
-import at.fhj.swengb.apps.battleship.model._
+import at.fhj.swengb.apps.battleship.model.{BattleField, BattleShipGame, Fleet, FleetConfig, BattlePos}
+/*
+import java.net.URL
+import java.util.ResourceBundle
+import javafx.fxml.{FXML, Initializable}
+import javafx.scene.control.TextArea
+import javafx.scene.layout.GridPane
+
+import at.fhj.swengb.apps.battleship.model.{BattleField, BattleShipGame, Fleet, FleetConfig}
+ */
 
 class BattleShipFxController extends Initializable {
 
@@ -29,6 +38,7 @@ class BattleShipFxController extends Initializable {
 
   //Creating a new game and resetting all states
   @FXML def newGame(): Unit = {
+    log.setText("")
     appendLog("A new game has started")
     init(createNewGame(), List())
   }
@@ -62,21 +72,15 @@ class BattleShipFxController extends Initializable {
     var PastChecker: Boolean = true
     val PastState: List[BattlePos] = game.GameState.takeRight(TimeOnSlider)
 
-
-    //Print some fancy output to user
-    if (TimeOnSlider == SliderState.getMax.toInt) {
-      appendLog("Backlog mode")
-      lbHeader.setText("Battleship")
-      PastChecker=false
-      /*We are in the present now again, which means that the buttons get active again
-        In this case we add the clicks to the list, that means we would have them tice.
-        Remove them here now - they get inserted with simulateClicks anyway...
-       */
-      game.GameState = List()
-    } else {
+    if (TimeOnSlider != SliderState.getMax.toInt) {
       appendLog("Backlog mode (" + PastState.size + ")")
       lbHeader.setText("Backlog")
-      PastChecker=true
+      PastChecker = true
+    } else {
+      appendLog("Backlog mode")
+      lbHeader.setText("Battleship")
+      PastChecker = false
+      game.GameState = List()
     }
 
     //If we are simulation mode, deactivate buttons
