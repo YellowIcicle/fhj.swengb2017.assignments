@@ -41,21 +41,17 @@ case class BattleShipGame(battleField: BattleField,
       getCellHeight(y),
       log,
       battleField.fleet.findByPos(pos),
-      updateGameState,
+      GameUpdater3000,
       ClickReader3000)
   }
 
   def CellReader3000(): Seq[BattleFxCell] = cells
 
   def ClickReader3000(pos: BattlePos): Unit = {
-    //We keep already clicked positions awell!
     GameState = pos :: GameState
-
-    //Update Slider aswell
     updateSlider(GameState.size)
   }
 
-  //Simulates click for all positions in list
   def RebuildGame(pos: List[BattlePos]): Unit = {
 
     for (p <- pos) {
@@ -64,7 +60,7 @@ case class BattleShipGame(battleField: BattleField,
     }
   }
 
-  def updateGameState(vessel: Vessel, pos: BattlePos): Unit = {
+  def GameUpdater3000(vessel: Vessel, pos: BattlePos): Unit = {
     log(vessel.name.value + "was hit!")
 
     if (hits.contains(vessel)) {

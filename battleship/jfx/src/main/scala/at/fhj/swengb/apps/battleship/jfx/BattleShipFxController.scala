@@ -13,7 +13,6 @@ import javafx.stage.FileChooser.ExtensionFilter
 import at.fhj.swengb.apps.battleship.model.{BattleField, BattleShipGame, Fleet, FleetConfig, BattlePos}
 import at.fhj.swengb.apps.battleship.BattleShipProtocol
 
-
 class BattleShipFxController extends Initializable {
 
   private var Game: BattleShipGame = _
