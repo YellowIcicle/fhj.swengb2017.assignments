@@ -17,19 +17,19 @@ case class BattleField(width: Int, height: Int, fleet: Fleet) {
   def addAtRandomPosition(Vessel3000: Vessel): BattleField = {
 
     def Iterator3000(Placed: Boolean, Position: Set[BattlePos], Field: BattleField): BattleField = {
-      if (Placed) {
-        println(s"Placed ${Vessel3000.getClass.getSimpleName} on the battlefield!")
-        Field
+      if (Placed == false) {
+        val p = Position.toSeq(Random.nextInt(Position.size))
+        if (Vessel3000.copy(InitPosition = p).occupiedPos.subsetOf(availablePos)) {
+          Iterator3000(true, Position - p, Field.copy(fleet = Field.fleet.copy(vessels = Field.fleet.vessels + Vessel3000.copy(InitPosition = p))))
+        } else {
+          Iterator3000(false, Position - p, Field)
+        }
       } else if (Position.isEmpty) {
         println(s"Can't place ${Vessel3000.getClass.getSimpleName} on the battlefield!")
         Field
       } else {
-        val p = Position.toSeq(Random.nextInt(Position.size))
-        if ((Vessel3000.copy(InitPosition = p)).occupiedPos.subsetOf(availablePos)) {
-          Iterator3000(true, Position - p, Field.copy(fleet = Field.fleet.copy(vessels = Field.fleet.vessels + (Vessel3000.copy(InitPosition = p)))))
-        } else {
-          Iterator3000(false, Position - p, Field)
-        }
+        println(s"Placed ${Vessel3000.getClass.getSimpleName} on the battlefield!")
+        Field
       }
     }
     Iterator3000(false, availablePos, this)
