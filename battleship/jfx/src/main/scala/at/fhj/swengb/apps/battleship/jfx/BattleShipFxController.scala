@@ -88,7 +88,7 @@ class BattleShipFxController extends Initializable {
       val ProtoFilter3000: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
       FileChooser3000.getExtensionFilters.add(ProtoFilter3000)
       //Converting and saving
-      val FileSaver3000: File = FileChooser3000.showSaveDialog(BattleShipFxApp.rootStage)
+      val FileSaver3000: File = FileChooser3000.showSaveDialog(BattleShipFxApp.FirstStage3000)
       BattleShipProtocol.convert(Game).writeTo(Files.newOutputStream(Paths.get(FileSaver3000.getAbsolutePath)))
       LogAdder3000("Saved Game")
   }
@@ -98,7 +98,7 @@ class BattleShipFxController extends Initializable {
       val FileChooser3000 = new FileChooser();
       val ProtoFilter3000: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
       FileChooser3000.getExtensionFilters.add(ProtoFilter3000)
-      val FileLoader3000: File = FileChooser3000.showOpenDialog(BattleShipFxApp.rootStage)
+      val FileLoader3000: File = FileChooser3000.showOpenDialog(BattleShipFxApp.FirstStage3000)
       val (clickedPos, battleShipGame) = GameLoader3000(FileLoader3000.getAbsolutePath)
       //Resetting log
       log.setText("")
