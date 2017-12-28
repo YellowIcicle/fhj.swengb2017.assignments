@@ -60,9 +60,9 @@ class BattleShipFxController extends Initializable {
     (Game, BattleShipProtocol.convert(LoadDestination).GameState.reverse)
   }
 
-  def SliderAdder3000(maxClicks: Int): Unit = {
-    SliderState.setMax(maxClicks)
-    SliderState.setValue(maxClicks)
+  def SliderAdder3000(Stack: Int): Unit = {
+    SliderState.setMax(Stack)
+    SliderState.setValue(Stack)
   }
 
   @FXML private var battleGroundGridPane: GridPane = _
