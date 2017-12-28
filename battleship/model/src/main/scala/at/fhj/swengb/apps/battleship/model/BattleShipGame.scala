@@ -42,13 +42,12 @@ case class BattleShipGame(battleField: BattleField,
       log,
       battleField.fleet.findByPos(pos),
       updateGameState,
-      ClickHistory)
+      ClickReader3000)
   }
 
   def CellReader3000(): Seq[BattleFxCell] = cells
 
-  //Adds a new Position to clicked set
-  def ClickHistory(pos: BattlePos): Unit = {
+  def ClickReader3000(pos: BattlePos): Unit = {
     //We keep already clicked positions awell!
     GameState = pos :: GameState
 
@@ -59,17 +58,9 @@ case class BattleShipGame(battleField: BattleField,
   //Simulates click for all positions in list
   def RebuildGame(pos: List[BattlePos]): Unit = {
 
-    /*
-    We have to iterate to get the correct sequence.
-    We are not allowed to do this:
-        val relevantCells: Seq[BattleFxCell] = cells.filter(c => pos.contains(c.pos))
-        relevantCells.map(e => e.handleMouseClick())
-    because filter is unsorted and would destroy the sequence
-     */
     for (p <- pos) {
-      //There is just one, we take the risc
-      val fxCell: BattleFxCell = cells.filter(e => e.pos.equals(p)).head
-      fxCell.Clicker3000()
+      val Cell: BattleFxCell = cells.filter(e => e.pos.equals(p)).head
+      Cell.Clicker3000()
     }
   }
 
@@ -77,22 +68,9 @@ case class BattleShipGame(battleField: BattleField,
     log(vessel.name.value + "was hit!")
 
     if (hits.contains(vessel)) {
-      // this code is executed if vessel was already hit at least once
 
-      // pos
-      // vessel
-      // map (hits)
-
-      // we want to update the hits map
-      // the map should be updated if
-      // we hit a vessel which is already contained
-      // in the 'hits' map, and it's values (
-      // the set of BattlePos) should be added
-      // the current pos
       val oldPos: Set[BattlePos] = hits(vessel)
-
       hits = hits.updated(vessel, oldPos + pos)
-
       hits(vessel).foreach(p => log(p.toString))
 
       if (oldPos.contains(pos)) {
@@ -109,9 +87,6 @@ case class BattleShipGame(battleField: BattleField,
       }
 
     } else {
-      // vessel is not part of the map
-      // but vessel was hit!
-      // it was hit the first time ever!
       hits = hits.updated(vessel, Set(pos))
     }
 
