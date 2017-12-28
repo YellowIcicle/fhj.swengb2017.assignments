@@ -44,10 +44,10 @@ object BattleShipProtocol {
 
     //Create BattleshipGame and set aready clicked positions
     val game = BattleShipGame(battleField,
-      (e => e.toDouble),
-      (e => e.toDouble),
       (e => ()),
-      (e => ()))
+      (e => ()),
+      (e => e.toDouble),
+      (e => e.toDouble))
     game.GameState = clickedPos
 
     //return game

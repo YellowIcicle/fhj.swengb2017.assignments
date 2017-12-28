@@ -4,10 +4,11 @@ package at.fhj.swengb.apps.battleship.model
   * Contains all information about a battleship game.
   */
 case class BattleShipGame(battleField: BattleField,
+                          log: String => Unit,
+                          updateSlider: Int => Unit,
                           getCellWidth: Int => Double,
                           getCellHeight: Int => Double,
-                          log: String => Unit,
-                          updateSlider: Int => Unit) {
+                          ) {
 
   /**
     * remembers which vessel was hit at which position
@@ -41,13 +42,13 @@ case class BattleShipGame(battleField: BattleField,
       log,
       battleField.fleet.findByPos(pos),
       updateGameState,
-      updateClickedPositions)
+      ClickHistory)
   }
 
-  def getCells(): Seq[BattleFxCell] = cells
+  def CellReader3000(): Seq[BattleFxCell] = cells
 
   //Adds a new Position to clicked set
-  def updateClickedPositions(pos: BattlePos): Unit = {
+  def ClickHistory(pos: BattlePos): Unit = {
     //We keep already clicked positions awell!
     GameState = pos :: GameState
 
@@ -103,7 +104,7 @@ case class BattleShipGame(battleField: BattleField,
         sunkShips = sunkShips + vessel
 
         if (battleField.fleet.vessels == sunkShips) {
-          log("G A M E   totally  O V E R")
+          log("Game Over")
         }
       }
 

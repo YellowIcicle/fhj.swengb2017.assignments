@@ -16,73 +16,58 @@ import at.fhj.swengb.apps.battleship.BattleShipProtocol
 
 class BattleShipFxController extends Initializable {
 
-  private var game: BattleShipGame = _
+  private var Game: BattleShipGame = _
 
   override def initialize(url: URL, rb: ResourceBundle): Unit = newGame()
+  def LogAdder3000(text: String): Unit = log.appendText(text + "\n")
   def WidthReader3000(width: Int): Int = battleGroundGridPane.getColumnConstraints.get(width).getPrefWidth.toInt
   def HeightReader3000(height: Int): Int = battleGroundGridPane.getRowConstraints.get(height).getPrefHeight.toInt
-  def LogAdder3000(text: String): Unit = log.appendText(text + "\n")
   /**
     * Creating a new game means:
     * - placing Ships on the battlefield
     * - resetting cells
     */
-  def init(g: BattleShipGame, simulateClicks: List[BattlePos]): Unit = {
-    //Initialize BattleShipGame
-    //Required to save state!
-    game = g
-
+  def Initiator3000(game: BattleShipGame, ClickChecker3000: List[BattlePos]): Unit = {
+    Game = game
     battleGroundGridPane.getChildren.clear()
-    for (cells <- g.getCells()) {
+    for (cells <- game.CellReader3000()) {
+
       battleGroundGridPane.add(cells, cells.pos.x, cells.pos.y)
     }
-    g.getCells().foreach(c => c.init())
-
-    //Reset all previous clicked positions
-    //simulate all already clicked positions and update GUI-Slider!
-    g.GameState = List()
-    g.RebuildGame(simulateClicks)
-    updateSlider(simulateClicks.size)
+    game.GameState = List()
+    game.CellReader3000().foreach(c => c.init())
+    game.RebuildGame(ClickChecker3000)
+    SliderAdder3000(ClickChecker3000.size)
   }
 
 
-  private def createNewGame(): BattleShipGame = {
-    val field = BattleField(10, 10, Fleet(FleetConfig.Standard))
-    val battleField: BattleField = BattleField.placeRandomly(field)
-    val game = BattleShipGame(battleField, WidthReader3000, HeightReader3000, LogAdder3000,updateSlider)
-    game
+  private def GameCreator3000(): BattleShipGame = {
+    val Field = BattleField(10, 10, Fleet(FleetConfig.Standard))
+    BattleShipGame(BattleField.RandomPlacer3000(Field), LogAdder3000, SliderAdder3000, WidthReader3000, HeightReader3000)
   }
 
-  private def loadGame(filePath: String): (BattleShipGame, List[BattlePos]) = {
-    //Read Protobuf-Object
-    val bsgIn =
-      at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame
+  private def GameLoader3000(filePath: String): (BattleShipGame, List[BattlePos]) = {
+    val LoadDestination = at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame
         .parseFrom(Files.newInputStream(Paths.get(filePath)))
 
-    //Convert Protobuf-Object to a BattleShipGame Instance
-    val loadedBattleShipGame: BattleShipGame =
-      BattleShipProtocol.convert(bsgIn)
-
-    //Create new game-Event based on loaded Data
-    val battleShipGame = BattleShipGame(loadedBattleShipGame.battleField,
-      WidthReader3000,
-      HeightReader3000,
+    val Game = BattleShipGame(BattleShipProtocol.convert(LoadDestination).battleField,
       LogAdder3000,
-      updateSlider)
+      SliderAdder3000,
+      WidthReader3000,
+      HeightReader3000)
 
-    battleShipGame.GameState = List()
-
-    (battleShipGame, loadedBattleShipGame.GameState)
+    Game.GameState = List()
+    (Game, BattleShipProtocol.convert(LoadDestination).GameState.reverse)
   }
 
-  def updateSlider(maxClicks: Int): Unit = {
+  def SliderAdder3000(maxClicks: Int): Unit = {
     SliderState.setMax(maxClicks)
     SliderState.setValue(maxClicks)
   }
 
   @FXML private var battleGroundGridPane: GridPane = _
   @FXML private var SliderState: Slider = _
-  @FXML private var Titel: Label = _
+  @FXML private var Title: Label = _
 
   /**
     * A text area box to place the history of the game
@@ -93,7 +78,7 @@ class BattleShipFxController extends Initializable {
   @FXML def newGame(): Unit = {
     log.setText("")
     LogAdder3000("A new game has started")
-    init(createNewGame(), List())
+    Initiator3000(GameCreator3000(), List())
   }
 
   @FXML def saveGame(): Unit = {
@@ -104,46 +89,47 @@ class BattleShipFxController extends Initializable {
       FileChooser3000.getExtensionFilters.add(ProtoFilter3000)
       //Converting and saving
       val FileSaver3000: File = FileChooser3000.showSaveDialog(BattleShipFxApp.rootStage)
-      BattleShipProtocol.convert(game).writeTo(Files.newOutputStream(Paths.get(FileSaver3000.getAbsolutePath)))
+      BattleShipProtocol.convert(Game).writeTo(Files.newOutputStream(Paths.get(FileSaver3000.getAbsolutePath)))
       LogAdder3000("Saved Game")
   }
+
 
   @FXML def loadGame(): Unit = {
       val FileChooser3000 = new FileChooser();
       val ProtoFilter3000: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
       FileChooser3000.getExtensionFilters.add(ProtoFilter3000)
       val FileLoader3000: File = FileChooser3000.showOpenDialog(BattleShipFxApp.rootStage)
-      val (clickedPos, battleShipGame) = loadGame(FileLoader3000.getAbsolutePath)
+      val (clickedPos, battleShipGame) = GameLoader3000(FileLoader3000.getAbsolutePath)
       //Resetting log
       log.setText("")
-      init(clickedPos, battleShipGame)
+      Initiator3000(clickedPos, battleShipGame)
       LogAdder3000("Loaded Game")
   }
 
   @FXML def onSliderChanged(): Unit = {
     val TimeOnSlider = SliderState.getValue.toInt
     var PastChecker: Boolean = true
-    val PastState: List[BattlePos] = game.GameState.takeRight(TimeOnSlider).reverse
+    val PastState: List[BattlePos] = Game.GameState.takeRight(TimeOnSlider).reverse
 
     if (TimeOnSlider != SliderState.getMax.toInt) {
       log.setText("")
-      Titel.setText("Backlog")
+      Title.setText("Reviewing Past")
       PastChecker = true
       LogAdder3000("Reviewing Past")
     } else {
       log.setText("")
-      Titel.setText("Battleship")
+      Title.setText("Battleship")
       PastChecker = false
-      game.GameState = List()
+      Game.GameState = List()
       LogAdder3000("Back to Present")
     }
     battleGroundGridPane.getChildren.clear()
-    for (cells <- game.getCells()) {
+    for (cells <- Game.CellReader3000()) {
       battleGroundGridPane.add(cells, cells.pos.x, cells.pos.y)
       cells.init()
       cells.setDisable(PastChecker) //PastChecker True if past -> cells deactivated
     }
-    game.RebuildGame(PastState) //Rebuilding the Game
+    Game.RebuildGame(PastState) //Rebuilding the Game
   }
 
 

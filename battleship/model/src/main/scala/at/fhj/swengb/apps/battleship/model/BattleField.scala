@@ -4,7 +4,7 @@ import scala.util.Random
 
 object BattleField {
 
-  def placeRandomly(bf: BattleField): BattleField = {
+  def RandomPlacer3000(bf: BattleField): BattleField = {
 
     def loop(vesselsToPlace: Set[Vessel], workingBattleField: BattleField): BattleField = {
       if (vesselsToPlace.isEmpty) workingBattleField

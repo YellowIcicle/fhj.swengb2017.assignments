@@ -36,10 +36,10 @@ object BattleshipGameGen {
     clickedPos <- clickedPosGen
   } yield {
     val game = BattleShipGame(battlefield,
-      (x => x.toDouble),
-      (x => x.toDouble),
       (x => ()),
-      (x => ()))
+      (x => ()),
+      (x => x.toDouble),
+      (x => x.toDouble))
     game.GameState = clickedPos
     game
   }
