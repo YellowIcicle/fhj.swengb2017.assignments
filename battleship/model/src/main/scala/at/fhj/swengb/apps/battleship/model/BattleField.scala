@@ -2,24 +2,6 @@ package at.fhj.swengb.apps.battleship.model
 
 import scala.util.Random
 
-object BattleField {
-
-  def RandomPlacer3000(bf: BattleField): BattleField = {
-
-    def loop(vesselsToPlace: Set[Vessel], workingBattleField: BattleField): BattleField = {
-      if (vesselsToPlace.isEmpty) workingBattleField
-      else {
-        val v = vesselsToPlace.head
-        loop(vesselsToPlace.tail, workingBattleField.addAtRandomPosition(v))
-      }
-
-    }
-
-    loop(bf.fleet.vessels, bf.copy(fleet = bf.fleet.copy(vessels = Set())))
-  }
-
-}
-
 /**
   * Denotes the size of our region of interest
   */
@@ -34,7 +16,7 @@ case class BattleField(width: Int, height: Int, fleet: Fleet) {
     */
   def addAtRandomPosition(v: Vessel): BattleField = {
 
-    def loop(pos: Set[BattlePos], currBf: BattleField, found: Boolean): BattleField = {
+    def Iterator3000(found: Boolean, pos: Set[BattlePos], currBf: BattleField): BattleField = {
       if (found) {
         println(s"Placed vessel of type ${v.getClass.getSimpleName} on battlefield ...")
         currBf
@@ -42,34 +24,43 @@ case class BattleField(width: Int, height: Int, fleet: Fleet) {
         println(s"Giving up on vessel of type ${v.getClass.getSimpleName}. No place left.")
         currBf
       } else {
-        // take random position out of available positions
         val p = pos.toSeq(Random.nextInt(pos.size))
         val vessel = v.copy(startPos = p)
         if (vessel.occupiedPos.subsetOf(availablePos)) {
-          loop(pos - p, currBf.copy(fleet = currBf.fleet.copy(vessels = currBf.fleet.vessels + vessel)), true)
+          Iterator3000(true, pos - p, currBf.copy(fleet = currBf.fleet.copy(vessels = currBf.fleet.vessels + vessel)))
         } else {
-          loop(pos - p, currBf, false)
+          Iterator3000(false, pos - p, currBf)
         }
       }
     }
-
-    loop(availablePos, this, false)
+    Iterator3000(false, availablePos, this)
 
   }
-
 
   /**
     * All positions in this battlefield
     */
-  val allPos: Set[BattlePos] = (for {x <- 0 until width
-                                     y <- 0 until height} yield BattlePos(x, y)).toSet
+  val Positions: Set[BattlePos] = (for {x <- 0 until width
+                                        y <- 0 until height} yield BattlePos(x, y)).toSet
 
 
-  val availablePos: Set[BattlePos] = allPos -- fleet.occupiedPositions
+  val availablePos: Set[BattlePos] = Positions -- fleet.occupiedPositions
 
   def randomFleet(): Fleet = {
     Fleet(Set[Vessel]())
   }
 
 
+}
+
+object BattleField {
+  def RandomPlacer3000(BattleField3000: BattleField): BattleField = {
+    def Placer3000(CurrentBattleField: BattleField, Vessels: Set[Vessel]): BattleField = {
+      if (Vessels.isEmpty) CurrentBattleField
+      else {
+        Placer3000(CurrentBattleField.addAtRandomPosition(Vessels.head), Vessels.tail)
+      }
+    }
+    Placer3000(BattleField3000.copy(fleet = BattleField3000.fleet.copy(vessels = Set())), BattleField3000.fleet.vessels)
+  }
 }
