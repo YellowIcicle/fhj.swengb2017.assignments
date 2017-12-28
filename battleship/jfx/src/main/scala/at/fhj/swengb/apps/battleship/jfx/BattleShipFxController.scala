@@ -24,12 +24,11 @@ import at.fhj.swengb.apps.battleship.model.{BattleField, BattleShipGame, Fleet, 
 
 class BattleShipFxController extends Initializable {
 
-  //Initialized in init
   private var game: BattleShipGame = _
 
   @FXML private var battleGroundGridPane: GridPane = _
   @FXML private var SliderState: Slider = _
-  @FXML private var lbHeader: Label = _
+  @FXML private var Titel: Label = _
 
   /**
     * A text area box to place the history of the game
@@ -73,24 +72,22 @@ class BattleShipFxController extends Initializable {
     val PastState: List[BattlePos] = game.GameState.takeRight(TimeOnSlider)
 
     if (TimeOnSlider != SliderState.getMax.toInt) {
-      appendLog("Backlog mode (" + PastState.size + ")")
-      lbHeader.setText("Backlog")
+      log.setText("")
+      appendLog("Reviewing Past")
+      Titel.setText("Backlog")
       PastChecker = true
     } else {
-      appendLog("Backlog mode")
-      lbHeader.setText("Battleship")
+      log.setText("")
+      appendLog("Back to Present")
+      Titel.setText("Battleship")
       PastChecker = false
       game.GameState = List()
     }
-
-    //If we are simulation mode, deactivate buttons
     battleGroundGridPane.getChildren.clear()
-    for (c <- game.getCells()) {
-      battleGroundGridPane.add(c, c.pos.x, c.pos.y)
-      c.init()
-      //Deactivate Buttons if we're in the history data!
-      //History is not changeable, we just can learn from history!
-      c.setDisable(PastChecker)
+    for (cells <- game.getCells()) {
+      battleGroundGridPane.add(cells, cells.pos.x, cells.pos.y)
+      cells.init()
+      cells.setDisable(PastChecker) //PastChecker True if past -> cells deactivated
     }
 
 
