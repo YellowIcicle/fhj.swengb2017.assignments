@@ -11,8 +11,8 @@ import scala.collection.JavaConverters._
 object BattleShipProtocol {
 
   def convert(g: BattleShipGame): BattleShipProtobuf.BattleShipGame = {
-    //Create Protobuf Battlefield
-    val protoBattleField = BattleShipProtobuf.BattleShipGame
+
+    val ProtoField3000 = BattleShipProtobuf.BattleShipGame
       .newBuilder()
       .setFieldWidth(g.battleField.width)
       .setFieldHeight(g.battleField.height)
@@ -20,15 +20,15 @@ object BattleShipProtocol {
     //Convert vessesls to protobuf-Vessels and add it
     val fleetProtobuf: Set[Vessel] =
       g.battleField.fleet.vessels.map(e => convert(e))
-    fleetProtobuf.foreach(e => protoBattleField.addVessels(e))
+    fleetProtobuf.foreach(e => ProtoField3000.addVessels(e))
 
     //Convert set of BattleBos to Protobuf clicked positions add add it
     val clickedPos =
       g.GameState.map(e => convert(e))
-    clickedPos.foreach(e => protoBattleField.addClickedPositions(e))
+    clickedPos.foreach(e => ProtoField3000.addClickedPositions(e))
 
     //Build battlefield and write to file
-    protoBattleField.build()
+    ProtoField3000.build()
   }
 
   def convert(g: BattleShipProtobuf.BattleShipGame): BattleShipGame = {
@@ -44,10 +44,10 @@ object BattleShipProtocol {
 
     //Create BattleshipGame and set aready clicked positions
     val game = BattleShipGame(battleField,
-      (e => ()),
-      (e => ()),
-      (e => e.toDouble),
-      (e => e.toDouble))
+      e => (),
+      e => (),
+      e => e.toDouble,
+      e => e.toDouble)
     game.GameState = clickedPos
 
     //return game
@@ -65,18 +65,18 @@ object BattleShipProtocol {
 
     val vesselOrientation = {
       vessel.direction match {
-        case Horizontal => VesselOrientation.Horizontal;
         case Vertical   => VesselOrientation.Vertical;
-        case _          => ??? /*When this happens, some crazy shit is going on... */
+        case Horizontal => VesselOrientation.Horizontal;
+        case _ => VesselOrientation.Vertical
       }
     }
 
     //Create new protobuf Vessel
     Vessel
       .newBuilder()
+      .setOrientation(vesselOrientation)
       .setName(vessel.name.value)
       .setSize(vessel.size)
-      .setOrientation(vesselOrientation)
       .setStartPos(
         Position
           .newBuilder()
@@ -100,9 +100,9 @@ object BattleShipProtocol {
       BattlePos(vessel.getStartPos.getX, vessel.getStartPos.getY)
     val size = vessel.getSize
     val direction: Direction = vessel.getOrientation match {
-      case VesselOrientation.Horizontal => Horizontal
       case VesselOrientation.Vertical   => Vertical
-      case _                            => ???
+      case VesselOrientation.Horizontal => Horizontal
+      case _ => Vertical
     }
 
     //Create Battleship Vessel and return it.
@@ -110,7 +110,7 @@ object BattleShipProtocol {
   }
 
   /**
-    * Generates a Protobuf Position from given BattlePos possiton
+    * Generates a Protobuf Position from given BattlePos position
     *
     * @param battlePos
     * @return
