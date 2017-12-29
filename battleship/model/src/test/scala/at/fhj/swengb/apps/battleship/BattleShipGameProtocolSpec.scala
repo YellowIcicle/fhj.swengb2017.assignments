@@ -14,8 +14,7 @@ class BattleShipProtocolSpec extends WordSpecLike {
       Checkers.check(Prop.forAll(battleShipGameGen) {
         expected: BattleShipGame =>
         {
-          val actual =
-            BattleShipProtocol.convert(BattleShipProtocol.convert(expected))
+          val actual = BattleShipProtocol.convert(BattleShipProtocol.convert(expected))
           //Make no sense to declare global functions just to test whole BattleShipGame object.
           actual.battleField == expected.battleField
           actual.GameState == expected.GameState
