@@ -3,7 +3,7 @@ package at.fhj.swengb.apps.battleship
 import at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.{
   Position,
   Vessel,
-  Direction
+  Alignment
 }
 import at.fhj.swengb.apps.battleship.model._
 import scala.collection.JavaConverters._
@@ -66,9 +66,9 @@ object BattleShipProtocol {
     Vessel
       .newBuilder()
       .setDirect(vessel.direction match {
-        case Vertical   => Direction.Vertical;
-        case Horizontal => Direction.Horizontal;
-        case _ => Direction.Vertical
+        case Vertical   => Alignment.Vertical;
+        case Horizontal => Alignment.Horizontal;
+        case _ => Alignment.Vertical
       })
       .setName(vessel.name.value)
       .setSize(vessel.size)
@@ -95,8 +95,8 @@ object BattleShipProtocol {
       BattlePos(vessel.getPos.getX, vessel.getPos.getY)
     val size = vessel.getSize
     val direction: Direction = vessel.getDirect match {
-      case Direction.Vertical   => Vertical
-      case Direction.Horizontal => Horizontal
+      case Alignment.Vertical   => Vertical
+      case Alignment.Horizontal => Horizontal
       case _ => Vertical
     }
 
