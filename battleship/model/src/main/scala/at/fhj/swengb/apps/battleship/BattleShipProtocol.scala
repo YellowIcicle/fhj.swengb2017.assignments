@@ -12,7 +12,7 @@ object BattleShipProtocol {
 
   def convert(g: BattleShipGame): BattleShipProtobuf.BattleShipGame = {
 
-    val ProtoField3000 = BattleShipProtobuf.BattleShipGame
+    val protoBattleField = BattleShipProtobuf.BattleShipGame
       .newBuilder()
       .setFieldWidth(g.battleField.width)
       .setFieldHeight(g.battleField.height)
@@ -20,15 +20,15 @@ object BattleShipProtocol {
     //Convert vessesls to protobuf-Vessels and add it
     val fleetProtobuf: Set[Vessel] =
       g.battleField.fleet.vessels.map(e => convert(e))
-    fleetProtobuf.foreach(e => ProtoField3000.addVessels(e))
+    fleetProtobuf.foreach(e => protoBattleField.addVessels(e))
 
     //Convert set of BattleBos to Protobuf clicked positions add add it
     val clickedPos =
       g.GameState.map(e => convert(e))
-    clickedPos.foreach(e => ProtoField3000.addClickedPositions(e))
+    clickedPos.foreach(e => protoBattleField.addClickedPositions(e))
 
     //Build battlefield and write to file
-    ProtoField3000.build()
+    protoBattleField.build()
   }
 
   def convert(g: BattleShipProtobuf.BattleShipGame): BattleShipGame = {
