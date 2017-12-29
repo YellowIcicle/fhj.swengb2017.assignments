@@ -2,8 +2,8 @@ package at.fhj.swengb.apps.battleship
 
 import at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.{
   Position,
-  Vessel,
-  Alignment
+  Vessel/*,
+  Alignment*/
 }
 import at.fhj.swengb.apps.battleship.model._
 import scala.collection.JavaConverters._
@@ -63,20 +63,19 @@ object BattleShipProtocol {
   // Previous convertVesseltoProtobufVessel
   def convert(vessel: at.fhj.swengb.apps.battleship.model.Vessel): Vessel = {
     //Create new protobuf Vessel
-    Vessel
-      .newBuilder()
-      .setDirect(vessel.direction match {
-        case Vertical   => Alignment.Vertical;
-        case Horizontal => Alignment.Horizontal;
-        case _ => Alignment.Vertical
+    Vessel.newBuilder()
+      .setAlignment(vessel.direction match {
+        case Vertical   => "Vertical";
+        case Horizontal => "Horizontal";
+        case _ => "Vertical"
       })
       .setName(vessel.name.value)
       .setSize(vessel.size)
       .setPos(
         Position
           .newBuilder()
-          .setX(vessel.InitPosition.x)
-          .setY(vessel.InitPosition.y)
+          .setColumn(vessel.InitPosition.x)
+          .setRow(vessel.InitPosition.y)
           .build())
       .build()
   }
@@ -92,11 +91,11 @@ object BattleShipProtocol {
 
     val name: NonEmptyString = NonEmptyString(vessel.getName)
     val startPos: BattlePos =
-      BattlePos(vessel.getPos.getX, vessel.getPos.getY)
+      BattlePos(vessel.getPos.getColumn, vessel.getPos.getRow)
     val size = vessel.getSize
-    val direction: Direction = vessel.getDirect match {
-      case Alignment.Vertical   => Vertical
-      case Alignment.Horizontal => Horizontal
+    val direction: Direction = vessel.getAlignment match {
+      case "Vertical"   => Vertical
+      case "Horizontal" => Horizontal
       case _ => Vertical
     }
 
@@ -114,8 +113,8 @@ object BattleShipProtocol {
   private def convert(battlePos: BattlePos): Position = {
     Position
       .newBuilder()
-      .setX(battlePos.x)
-      .setY(battlePos.y)
+      .setColumn(battlePos.x)
+      .setRow(battlePos.y)
       .build()
   }
 
@@ -126,7 +125,7 @@ object BattleShipProtocol {
     */
   //previous convertProtoBufPositionToBattlePos
   private def convert(position: Position): BattlePos = {
-    BattlePos(position.getX, position.getY)
+    BattlePos(position.getColumn, position.getRow)
   }
 
 }

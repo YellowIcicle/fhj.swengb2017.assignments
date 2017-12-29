@@ -14,19 +14,14 @@ message BattleShipGame {
     repeated Position HitCells = 4;
 
     message Position {
-        int32 Y = 1;
-        int32 X = 2;
+        int32 Row = 1;
+        int32 Column = 2;
     }
 
     message Vessel {
         string Name = 1;
         int32 Size = 2;
-        Alignment Direct = 3;
+        string Alignment = 3;
         Position Pos = 4;
-    }
-
-    enum Alignment {
-        Vertical = 0;
-        Horizontal = 1;
     }
 }
