@@ -2,36 +2,38 @@
     -fx-background-color: #3498DB;
     -fx-background-image: url("bgimage.jpg");
     -fx-background-size:  cover; 
-    
+    -fx-animation: panning 50s infinite linear;
 }
 
-#TextArea {
-    -fx-background-color: #000000;
-    
+
+.button {
+    -fx-background-color: #dcb29a;
+
 }
 
-/*#VBox {
-    -fx-background-color: #2980B9;
-    
-}*/
+.button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(94,111,121,0.8), 20, 0, 0, 0);
 
-#Button {
-    -fx-background-color: #ffffff;
-    
 }
 
-#Button:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(193,1,0,0.8), 10, 0, 0, 0);
-    
-}
-
-#Title {
-
-    /*-fx-text-shadow: 20px 20px #ff0000;*/
-    
-}
 
 #Slider {
-    background-color: #c10100;
-    
+    -fx-font-size: 23px;
+    -fx-color: #5e6f79;
+    -fx-font-family: 'Helvetica Neue';
+    -fx-padding-top: 5px;
+    -fx-control-inner-background: #dcb29a;
+
+}
+
+.slider .axis {
+    -fx-tick-label-fill: #dcb29a;
+    -fx-stroke: #ffffff;
+    -fx-stroke-width: 3px;
+
+}
+
+.textField {
+  -fx-control-inner-background: #dcb29a;
+  -fx-text-fill: #5e6f79;
 }
