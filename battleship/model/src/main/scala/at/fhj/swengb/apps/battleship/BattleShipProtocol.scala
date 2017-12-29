@@ -65,7 +65,7 @@ object BattleShipProtocol {
     //Create new protobuf Vessel
     Vessel
       .newBuilder()
-      .setOrientation(vessel.direction match {
+      .setDirect(vessel.direction match {
         case Vertical   => VesselDirection.Vertical;
         case Horizontal => VesselDirection.Horizontal;
         case _ => VesselDirection.Vertical
@@ -94,7 +94,7 @@ object BattleShipProtocol {
     val startPos: BattlePos =
       BattlePos(vessel.getStartPos.getX, vessel.getStartPos.getY)
     val size = vessel.getSize
-    val direction: Direction = vessel.getOrientation match {
+    val direction: Direction = vessel.getDirect match {
       case VesselDirection.Vertical   => Vertical
       case VesselDirection.Horizontal => Horizontal
       case _ => Vertical
