@@ -15,7 +15,7 @@ case class BattleShipGame(battleField: BattleField,
     * starts with the empty map, meaning that no vessel was hit yet.
     *
     **/
-  var hits: Map[Vessel, Set[BattlePos]] = Map()
+  var GameState: Map[Vessel, Set[BattlePos]] = Map()
 
   /**
     * contains all vessels which are destroyed
@@ -63,17 +63,17 @@ case class BattleShipGame(battleField: BattleField,
   def GameUpdater3000(vessel: Vessel, pos: BattlePos): Unit = {
     log(vessel.name.value + "was hit!")
 
-    if (hits.contains(vessel)) {
+    if (GameState.contains(vessel)) {
 
-      val oldPos: Set[BattlePos] = hits(vessel)
-      hits = hits.updated(vessel, oldPos + pos)
-      hits(vessel).foreach(p => log(p.toString))
+      val oldPos: Set[BattlePos] = GameState(vessel)
+      GameState = GameState.updated(vessel, oldPos + pos)
+      GameState(vessel).foreach(p => log(p.toString))
 
       if (oldPos.contains(pos)) {
         log("Area already hit!")
       }
 
-      if (vessel.occupiedPos == hits(vessel)) {
+      if (vessel.occupiedPos == GameState(vessel)) {
         log(s"${vessel.name.value} annihilated!")
         sunkShips = sunkShips + vessel
 
@@ -83,7 +83,7 @@ case class BattleShipGame(battleField: BattleField,
       }
 
     } else {
-      hits = hits.updated(vessel, Set(pos))
+      GameState = GameState.updated(vessel, Set(pos))
     }
 
   }
