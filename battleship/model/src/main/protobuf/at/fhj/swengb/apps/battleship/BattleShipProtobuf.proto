@@ -21,11 +21,11 @@ message BattleShipGame {
     message Vessel {
         string name = 1;
         int32 size = 2;
-        VesselOrientation orientation = 3;
+        VesselDirection Direct = 3;
         Position startPos = 4;
     }
 
-    enum VesselOrientation {
+    enum VesselDirection {
         Vertical = 0;
         Horizontal = 1;
     }
