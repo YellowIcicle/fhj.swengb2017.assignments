@@ -24,7 +24,7 @@ case class BattleFxCell(pos: BattlePos,
       upClickedPos(pos)
     someVessel match {
       case None =>
-        log(s"Commander, you missed the enemy fleet!")
+        log(s"Just hit water!")
         setFill(Color.MEDIUMAQUAMARINE)
       case Some(v) =>
         fn(v, pos)
@@ -37,7 +37,7 @@ case class BattleFxCell(pos: BattlePos,
       upClickedPos(pos)
     someVessel match {
       case None =>
-        log(s"Commander, you missed the enemy fleet!")
+        log(s"Just hit water!")
         setFill(Color.MEDIUMAQUAMARINE)
       case Some(v) =>
         fn(v, pos)

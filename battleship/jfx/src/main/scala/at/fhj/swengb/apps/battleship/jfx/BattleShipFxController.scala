@@ -68,9 +68,6 @@ class BattleShipFxController extends Initializable {
   @FXML private var SliderState: Slider = _
   @FXML private var Title: Label = _
 
-  /**
-    * A text area box to place the history of the game
-    */
   @FXML private var log: TextArea = _
 
   //Creating a new game and resetting all states

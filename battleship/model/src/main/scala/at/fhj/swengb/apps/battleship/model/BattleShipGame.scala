@@ -70,7 +70,7 @@ case class BattleShipGame(battleField: BattleField,
       hits(vessel).foreach(p => log(p.toString))
 
       if (oldPos.contains(pos)) {
-        log("Commander, you already bombed this area!")
+        log("Area already hit!")
       }
 
       if (vessel.occupiedPos == hits(vessel)) {
