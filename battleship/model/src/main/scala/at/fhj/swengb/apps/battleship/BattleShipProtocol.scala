@@ -33,7 +33,7 @@ object BattleShipProtocol {
 
   
   /**
-    * Convertes a given Battleship-Game Vessel to an Protobuf Vessel to store
+    * Converter: Vessel => Protobuf Vessel
     *
     * @param vessel
     * @return
@@ -57,7 +57,7 @@ object BattleShipProtocol {
   }
 
   /**
-    * Convert a Protobuf Vessel to a BattleShipGame Vessel
+    * Converter: Protobuf Vessel => Vessel
     *
     * @param vessel
     * @return
