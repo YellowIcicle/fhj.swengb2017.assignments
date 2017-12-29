@@ -7,37 +7,21 @@ import scala.collection.JavaConverters._
 
 object BattleShipProtocol {
 
-  /**
-    * Generates a Protobuf Position from given BattlePos position
-    *
-    * @param battlePos
-    * @return
-    */
-  private def convert(battlePos: BattlePos): Position = {
+  //Converter: BattlePos => Protobuf Position
+  private def convert(BattlePos3000: BattlePos): Position = {
     Position
       .newBuilder()
-      .setColumn(battlePos.x)
-      .setRow(battlePos.y)
+      .setColumn(BattlePos3000.x)
+      .setRow(BattlePos3000.y)
       .build()
   }
 
-
-  /** Converts a Protobuf Position to a BattleShipGame BattlePos
-    *
-    * @param position
-    * @return
-    */
-  private def convert(position: Position): BattlePos = {
-    BattlePos(position.getColumn, position.getRow)
+  //Converter: Protobuf Position => BattlePos
+  private def convert(Position3000: Position): BattlePos = {
+    BattlePos(Position3000.getColumn, Position3000.getRow)
   }
 
-  
-  /**
-    * Converter: Vessel => Protobuf Vessel
-    *
-    * @param vessel
-    * @return
-    */
+ //Converter: Vessel => Protobuf Vessel
   def convert(vessel: at.fhj.swengb.apps.battleship.model.Vessel): Vessel = {
     Vessel.newBuilder()
       .setAlignment(vessel.direction match {
@@ -56,12 +40,7 @@ object BattleShipProtocol {
       .build()
   }
 
-  /**
-    * Converter: Protobuf Vessel => Vessel
-    *
-    * @param vessel
-    * @return
-    */
+  //Converter: Protobuf Vessel => Vessel
   def convert(vessel: Vessel): at.fhj.swengb.apps.battleship.model.Vessel = {
     at.fhj.swengb.apps.battleship.model.Vessel(
       NonEmptyString(vessel.getName),
@@ -72,7 +51,6 @@ object BattleShipProtocol {
         case _ => Vertical},
       vessel.getSize)
   }
-
 
   //Converter: Game State => Protobuf Game State
   def convert(game: BattleShipGame): BattleShipProtobuf.BattleShipGame = {
@@ -90,7 +68,6 @@ object BattleShipProtocol {
     //Convert the Game State into Protobuf Format
     ProtoField3000.build()
   }
-
 
   //Converter: Protobuf Game State => Game State
   def convert(game: BattleShipProtobuf.BattleShipGame): BattleShipGame = {
