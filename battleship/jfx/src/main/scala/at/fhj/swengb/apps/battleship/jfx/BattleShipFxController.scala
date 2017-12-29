@@ -21,11 +21,9 @@ class BattleShipFxController extends Initializable {
   def LogAdder3000(text: String): Unit = log.appendText(text + "\n")
   def WidthReader3000(width: Int): Int = battleGroundGridPane.getColumnConstraints.get(width).getPrefWidth.toInt
   def HeightReader3000(height: Int): Int = battleGroundGridPane.getRowConstraints.get(height).getPrefHeight.toInt
-  /**
-    * Creating a new game means:
-    * - placing Ships on the battlefield
-    * - resetting cells
-    */
+
+
+  
   def Initiator3000(game: BattleShipGame, ClickChecker3000: List[BattlePos]): Unit = {
     Game = game
     battleGroundGridPane.getChildren.clear()
