@@ -3,7 +3,7 @@ package at.fhj.swengb.apps.battleship
 import at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.{
   Position,
   Vessel,
-  VesselDirection
+  Direction
 }
 import at.fhj.swengb.apps.battleship.model._
 import scala.collection.JavaConverters._
@@ -25,7 +25,7 @@ object BattleShipProtocol {
     //Convert set of BattleBos to Protobuf clicked positions add add it
     val clickedPos =
       g.GameState.map(e => convert(e))
-    clickedPos.foreach(e => protoBattleField.addClickedPositions(e))
+    clickedPos.foreach(e => protoBattleField.addHitCells(e))
 
     //Build battlefield and write to file
     protoBattleField.build()
@@ -40,7 +40,7 @@ object BattleShipProtocol {
 
     //Create set of alread clicked positions
     val clickedPos: List[BattlePos] =
-      g.getClickedPositionsList.asScala.map(e => convert(e)).toList
+      g.getHitCellsList.asScala.map(e => convert(e)).toList
 
     //Create BattleshipGame and set aready clicked positions
     val game = BattleShipGame(battleField,
@@ -66,13 +66,13 @@ object BattleShipProtocol {
     Vessel
       .newBuilder()
       .setDirect(vessel.direction match {
-        case Vertical   => VesselDirection.Vertical;
-        case Horizontal => VesselDirection.Horizontal;
-        case _ => VesselDirection.Vertical
+        case Vertical   => Direction.Vertical;
+        case Horizontal => Direction.Horizontal;
+        case _ => Direction.Vertical
       })
       .setName(vessel.name.value)
       .setSize(vessel.size)
-      .setStartPos(
+      .setPos(
         Position
           .newBuilder()
           .setX(vessel.InitPosition.x)
@@ -92,11 +92,11 @@ object BattleShipProtocol {
 
     val name: NonEmptyString = NonEmptyString(vessel.getName)
     val startPos: BattlePos =
-      BattlePos(vessel.getStartPos.getX, vessel.getStartPos.getY)
+      BattlePos(vessel.getPos.getX, vessel.getPos.getY)
     val size = vessel.getSize
     val direction: Direction = vessel.getDirect match {
-      case VesselDirection.Vertical   => Vertical
-      case VesselDirection.Horizontal => Horizontal
+      case Direction.Vertical   => Vertical
+      case Direction.Horizontal => Horizontal
       case _ => Vertical
     }
 
