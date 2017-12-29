@@ -62,19 +62,14 @@ object BattleShipProtocol {
     */
   // Previous convertVesseltoProtobufVessel
   def convert(vessel: at.fhj.swengb.apps.battleship.model.Vessel): Vessel = {
-
-    val vesselOrientation = {
-      vessel.direction match {
-        case Vertical   => VesselOrientation.Vertical;
-        case Horizontal => VesselOrientation.Horizontal;
-        case _ => VesselOrientation.Vertical
-      }
-    }
-
     //Create new protobuf Vessel
     Vessel
       .newBuilder()
-      .setOrientation(vesselOrientation)
+      .setOrientation(vessel.direction match {
+        case Vertical   => VesselOrientation.Vertical;
+        case Horizontal => VesselOrientation.Horizontal;
+        case _ => VesselOrientation.Vertical
+      })
       .setName(vessel.name.value)
       .setSize(vessel.size)
       .setStartPos(
