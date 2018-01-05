@@ -16,8 +16,18 @@ case class BattleFxCell(pos: BattlePos,
   extends Rectangle(width, height) {
 
   def init(): Unit = {
-    setFill(Color rgb(0,0,255,0.8))
+    setFill(Color rgb(50,50,50,1))
   }
+
+/* mark ships for testing purposes
+  def init(): Unit = {
+    if (someVessel.isDefined) {
+      setFill(Color.YELLOWGREEN)
+    } else {
+      setFill(Color.BLUE)
+    }
+  }
+*/
 
   setOnMouseClicked(e => {
     if(!isDisable)
@@ -25,10 +35,10 @@ case class BattleFxCell(pos: BattlePos,
     someVessel match {
       case None =>
         log(s"Just hit water!")
-        setFill(Color rgb(0,255,255,0.8))
+        setFill(Color rgb(202,202,202,1))
       case Some(v) =>
         fn(v, pos)
-        setFill(Color rgb(255,0,0,0.8))
+        setFill(Color rgb(118,184,42,1))
     }
   })
 
@@ -38,10 +48,10 @@ case class BattleFxCell(pos: BattlePos,
     someVessel match {
       case None =>
         log(s"Just hit water!")
-        setFill(Color rgb(0,255,255,0.8))
+        setFill(Color rgb(202,202,202,1))
       case Some(v) =>
         fn(v, pos)
-        setFill(Color rgb(255,0,0,0.8))
+        setFill(Color rgb(118,184,42,1))
     }
   }
 

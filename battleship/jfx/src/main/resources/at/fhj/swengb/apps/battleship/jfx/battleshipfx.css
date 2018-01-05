@@ -1,6 +1,5 @@
 #Borderpane {
-    -fx-background-color: #3498DB;
-    -fx-background-image: url("bgimage.jpg");
+    -fx-background-color: #FFFFFF;
     -fx-background-size:  cover; 
     -fx-animation: panning 50s infinite linear;
 }

@@ -27,16 +27,6 @@
             <font>
                 <Font name="Krungthep" size="34.0" />
             </font>
-            <graphic>
-                <ImageView fitHeight="37.0" fitWidth="39.0" preserveRatio="true" translateX="69.5" translateY="-12.0">
-                    <image>
-                        <Image url="@crosshair.png" />
-                    </image>
-                    <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                    </cursor>
-                </ImageView>
-            </graphic>
             <BorderPane.margin>
                 <Insets top="10.0" />
             </BorderPane.margin>
