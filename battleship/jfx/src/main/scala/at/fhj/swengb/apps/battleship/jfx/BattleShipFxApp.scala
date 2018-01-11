@@ -41,7 +41,7 @@ class BattleShipFxApp extends Application {
     stage.setTitle("Battleship the Game")
     stage.setResizable(false)
     BattleShipFxApp.FirstStage3000 = stage
-    BattleShipFxApp.ScenePresenter3000(BattleShipFxApp.SceneLoader3000("/at/fhj/swengb/apps/battleship/jfx/battleshipfx.fxml"),stage)
+    BattleShipFxApp.ScenePresenter3000(BattleShipFxApp.SceneLoader3000("/at/fhj/swengb/apps/battleship/jfx/welcomescreen.fxml"),stage)
   }
 }
 

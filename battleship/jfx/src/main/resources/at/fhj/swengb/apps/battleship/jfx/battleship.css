@@ -1,0 +1,77 @@
+#StartButton {
+    -fx-background-color: #ffffff;
+    
+}
+
+#MainMenu {
+    -fx-background-image: url(Recourses/menue_color.png);
+    -fx-background-size: 1280px 905px;
+    
+}
+
+.MainMenuButton {
+    -fx-pref-width: 300px;
+    -fx-pref-height: 80px;
+    -fx-background-color: #ffffff;
+    -fx-font-family: "BerlinSansFB";
+    -fx-font-size: 36px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #76b82a;
+    -fx-border-width: 2px;
+    -fx-border-radius: 0px;
+}
+
+.MainMenuButton:hover {
+    -fx-pref-width: 450px;
+    -fx-pref-height: 100px;
+    -fx-background-color: #ffffff;
+    -fx-font-family: "BerlinSansFB";
+    -fx-font-size: 36px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #76b82a;
+    -fx-border-width: 4px;
+    -fx-border-radius: 0px;
+}
+
+#CreateNewGameScreen {
+    -fx-background-image: url(Recourses/CreateNewGameBG);
+    -fx-background-size: 1280px 905px;
+    
+}
+
+.Headers {
+    -fx-font-family: "BerlinSansFB";
+    -fx-text-fill: #000000;
+    -fx-font-size: 65px;
+    
+}
+
+.CNG-Labels {
+    -fx-text-fill: #76b82a;
+    -fx-font-family: "BerlinSansFB";
+}
+
+#CONTINUE-Button {
+    -fx-text-fill: #000000;
+    -fx-font-size: 40px;
+    -fx-font-family: "BerlinSansFB";
+    -fx-background-color: #ffffff;
+}
+
+.back-button {
+    -fx-background-color: #000000;
+    -fx-text-fill: #ffffff;
+    -fx-font-family:"BerlinSansFB";
+    -fx-font-size: 28px;
+}
+
+#Credits {
+    -fx-background-image: url(Recourses/menu_bg.png);
+    -fx-background-size: 1280px 905px;
+}
+
+#Credits-Text {
+    -fx-background-color: #ffffff;
+    -fx-outline: none;
+    -fx-control-inner-background: #000000;
+}
