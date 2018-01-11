@@ -22,7 +22,7 @@ class BattleShipFxController2 extends Initializable {
 
   }
 
-  @FXML def zuruck(): Unit = BattleShipFxApp.showScene(BattleShipFxApp.parseScene("/at/fhj/swengb/apps/battleship/jfx/battleshipfx.fxml"),BattleShipFxApp.FirstStage3000)
+  @FXML def zuruck(): Unit = BattleShipFxApp.ScenePresenter3000(BattleShipFxApp.SceneLoader3000("/at/fhj/swengb/apps/battleship/jfx/battleshipfx.fxml"),BattleShipFxApp.FirstStage3000)
 
 
 }

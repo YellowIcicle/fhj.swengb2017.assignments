@@ -15,13 +15,13 @@ object BattleShipFxApp {
     Application.launch(classOf[BattleShipFxApp], args: _*)
   }
 
-  def showScene(scene: Scene, stage: Stage): Unit = {
+  def ScenePresenter3000(scene: Scene, stage: Stage): Unit = {
     stage.setScene(scene)
     stage.show()
   }
 
-  def parseScene(fxml: String): Scene = {
-    val triedScene = Try(FXMLLoader.load[Parent](getClass.getResource(fxml)))
+  def SceneLoader3000(sceneString: String): Scene = {
+    val triedScene = Try(FXMLLoader.load[Parent](getClass.getResource(sceneString)))
     triedScene match {
       case Success(root) =>
         val scene: Scene = new Scene(root)
@@ -43,7 +43,7 @@ class BattleShipFxApp extends Application {
     stage.setTitle("Battleship the Game")
     stage.setResizable(false)
     BattleShipFxApp.FirstStage3000 = stage
-    BattleShipFxApp.showScene(BattleShipFxApp.parseScene("/at/fhj/swengb/apps/battleship/jfx/battleshipfx.fxml"),stage)
+    BattleShipFxApp.ScenePresenter3000(BattleShipFxApp.SceneLoader3000("/at/fhj/swengb/apps/battleship/jfx/battleshipfx.fxml"),stage)
   }
 }
 
