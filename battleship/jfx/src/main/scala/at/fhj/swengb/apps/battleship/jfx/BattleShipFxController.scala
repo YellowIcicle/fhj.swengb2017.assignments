@@ -4,14 +4,17 @@ import java.io.File
 import java.net.URL
 import java.nio.file.{Files, Paths}
 import java.util.ResourceBundle
-import javafx.fxml.{FXML, Initializable}
-import javafx.scene.control.{TextArea, Slider, Label}
+import javafx.fxml.{FXML, FXMLLoader, Initializable}
+import javafx.scene.{Parent, Scene}
+import javafx.scene.control.{Label, Slider, TextArea}
 import javafx.scene.layout.GridPane
-import javafx.stage.FileChooser
+import javafx.stage.{FileChooser, Stage}
 import javafx.stage.FileChooser.ExtensionFilter
 
-import at.fhj.swengb.apps.battleship.model.{BattleField, BattleShipGame, Fleet, FleetConfig, BattlePos}
+import at.fhj.swengb.apps.battleship.model.{BattleField, BattlePos, BattleShipGame, Fleet, FleetConfig}
 import at.fhj.swengb.apps.battleship.BattleShipProtocol
+
+import scala.util.{Failure, Success, Try}
 
 class BattleShipFxController extends Initializable {
 
@@ -126,5 +129,5 @@ class BattleShipFxController extends Initializable {
     Game.RebuildGame(PastState) //Rebuilding the Game
   }
 
-
+  @FXML def work(): Unit = BattleShipFxApp.showScene(BattleShipFxApp.parseScene("/at/fhj/swengb/apps/battleship/jfx/screen2.fxml"),BattleShipFxApp.FirstStage3000)
 }

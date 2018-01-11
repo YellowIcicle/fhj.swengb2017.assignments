@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="Borderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="752.0" prefHeight="540.0" prefWidth="752.0" stylesheets="@battleshipfx.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhj.swengb.apps.battleship.jfx.BattleShipFxController">
+<BorderPane id="Borderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="752.0" prefHeight="540.0" prefWidth="752.0" stylesheets="@battleshipfx.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhj.swengb.apps.battleship.jfx.BattleShipFxController2">
     <right>
 
 
@@ -30,6 +30,10 @@
         <VBox id="VBox" prefHeight="252.0" prefWidth="138.0" stylesheets="@battleshipfx.css" BorderPane.alignment="CENTER" />
     </right>
    <center>
-      <Button mnemonicParsing="false" text="Zuruck" BorderPane.alignment="CENTER" />
+      <Button fx:id="zuruck" mnemonicParsing="false" onAction="#zuruck" prefHeight="72.0" prefWidth="162.0" text="Schiacha Button" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </center>
 </BorderPane>
