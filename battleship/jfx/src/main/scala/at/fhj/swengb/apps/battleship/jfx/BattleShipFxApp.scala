@@ -10,6 +10,7 @@ import scala.util.{Failure, Success, Try}
 object BattleShipFxApp {
 
   var FirstStage3000: Stage = _;
+
   def main(args: Array[String]): Unit = {
     Application.launch(classOf[BattleShipFxApp], args: _*)
   }
@@ -34,8 +35,6 @@ object BattleShipFxApp {
     }
   }
 }
-
-
 
 
 class BattleShipFxApp extends Application {
