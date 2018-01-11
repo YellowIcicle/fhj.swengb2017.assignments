@@ -38,10 +38,8 @@ object BattleShipFxApp {
 class BattleShipFxApp extends Application {
 
   override def start(stage: Stage): Unit = {
-    stage.setTitle("Battleship the Game")
-    stage.setResizable(false)
     BattleShipFxApp.FirstStage3000 = stage
-    BattleShipFxApp.ScenePresenter3000(BattleShipFxApp.SceneLoader3000("/at/fhj/swengb/apps/battleship/jfx/welcomescreen.fxml"),stage)
+    BattleShipFxApp.ScenePresenter3000(BattleShipFxApp.SceneLoader3000("/at/fhj/swengb/apps/battleship/jfx/splashscreen.fxml"),stage)
   }
 }
 
