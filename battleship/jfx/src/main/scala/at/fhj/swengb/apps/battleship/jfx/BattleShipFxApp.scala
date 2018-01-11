@@ -25,8 +25,6 @@ object BattleShipFxApp {
     triedScene match {
       case Success(root) =>
         val scene: Scene = new Scene(root)
-        scene.getStylesheets.clear()
-        scene.getStylesheets.add("/at/fhj/swengb/apps/battleship/jfx/battleshipfx.css")
         scene
       case Failure(e) => {
         e.printStackTrace()
