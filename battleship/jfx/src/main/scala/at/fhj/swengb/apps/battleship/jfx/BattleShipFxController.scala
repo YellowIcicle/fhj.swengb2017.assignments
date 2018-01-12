@@ -4,14 +4,17 @@ import java.io.File
 import java.net.URL
 import java.nio.file.{Files, Paths}
 import java.util.ResourceBundle
-import javafx.fxml.{FXML, Initializable}
-import javafx.scene.control.{TextArea, Slider, Label}
+import javafx.fxml.{FXML, FXMLLoader, Initializable}
+import javafx.scene.{Parent, Scene}
+import javafx.scene.control.{Label, Slider, TextArea}
 import javafx.scene.layout.GridPane
-import javafx.stage.FileChooser
+import javafx.stage.{FileChooser, Stage}
 import javafx.stage.FileChooser.ExtensionFilter
 
-import at.fhj.swengb.apps.battleship.model.{BattleField, BattleShipGame, Fleet, FleetConfig, BattlePos}
+import at.fhj.swengb.apps.battleship.model.{BattleField, BattlePos, BattleShipGame, Fleet, FleetConfig}
 import at.fhj.swengb.apps.battleship.BattleShipProtocol
+
+import scala.util.{Failure, Success, Try}
 
 class BattleShipFxController extends Initializable {
 
@@ -22,7 +25,8 @@ class BattleShipFxController extends Initializable {
   def WidthReader3000(width: Int): Int = battleGroundGridPane.getColumnConstraints.get(width).getPrefWidth.toInt
   def HeightReader3000(height: Int): Int = battleGroundGridPane.getRowConstraints.get(height).getPrefHeight.toInt
 
-  
+
+
   def Initiator3000(game: BattleShipGame, ClickChecker3000: List[BattlePos]): Unit = {
     Game = game
     battleGroundGridPane.getChildren.clear()
@@ -44,7 +48,7 @@ class BattleShipFxController extends Initializable {
 
   private def GameLoader3000(filePath: String): (BattleShipGame, List[BattlePos]) = {
     val LoadDestination = at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame
-      .parseFrom(Files.newInputStream(Paths.get(filePath)))
+        .parseFrom(Files.newInputStream(Paths.get(filePath)))
 
     val Game = BattleShipGame(BattleShipProtocol.convert(LoadDestination).battleField,
       LogAdder3000,
@@ -75,28 +79,28 @@ class BattleShipFxController extends Initializable {
   }
 
   @FXML def saveGame(): Unit = {
-    //Using FileChooser for accessing our files
-    val FileChooser3000 = new FileChooser();
-    //Filtering on our protobuf files with the ending .bin
-    val ProtoFilter3000: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
-    FileChooser3000.getExtensionFilters.add(ProtoFilter3000)
-    //Converting and saving
-    val FileSaver3000: File = FileChooser3000.showSaveDialog(BattleShipFxApp.FirstStage3000)
-    BattleShipProtocol.convert(Game).writeTo(Files.newOutputStream(Paths.get(FileSaver3000.getAbsolutePath)))
-    LogAdder3000("Saved Game")
+      //Using FileChooser for accessing our files
+      val FileChooser3000 = new FileChooser();
+      //Filtering on our protobuf files with the ending .bin
+      val ProtoFilter3000: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
+      FileChooser3000.getExtensionFilters.add(ProtoFilter3000)
+      //Converting and saving
+      val FileSaver3000: File = FileChooser3000.showSaveDialog(BattleShipFxApp.FirstStage3000)
+      BattleShipProtocol.convert(Game).writeTo(Files.newOutputStream(Paths.get(FileSaver3000.getAbsolutePath)))
+      LogAdder3000("Saved Game")
   }
 
 
   @FXML def loadGame(): Unit = {
-    val FileChooser3000 = new FileChooser();
-    val ProtoFilter3000: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
-    FileChooser3000.getExtensionFilters.add(ProtoFilter3000)
-    val FileLoader3000: File = FileChooser3000.showOpenDialog(BattleShipFxApp.FirstStage3000)
-    val (clickedPos, battleShipGame) = GameLoader3000(FileLoader3000.getAbsolutePath)
-    //Resetting log
-    log.setText("")
-    Initiator3000(clickedPos, battleShipGame)
-    LogAdder3000("Loaded Game")
+      val FileChooser3000 = new FileChooser();
+      val ProtoFilter3000: FileChooser.ExtensionFilter = new ExtensionFilter("Protobuf files","*.bin")
+      FileChooser3000.getExtensionFilters.add(ProtoFilter3000)
+      val FileLoader3000: File = FileChooser3000.showOpenDialog(BattleShipFxApp.FirstStage3000)
+      val (clickedPos, battleShipGame) = GameLoader3000(FileLoader3000.getAbsolutePath)
+      //Resetting log
+      log.setText("")
+      Initiator3000(clickedPos, battleShipGame)
+      LogAdder3000("Loaded Game")
   }
 
   @FXML def onSliderChanged(): Unit = {
@@ -125,5 +129,5 @@ class BattleShipFxController extends Initializable {
     Game.RebuildGame(PastState) //Rebuilding the Game
   }
 
-
+  @FXML def work(): Unit = BattleShipFxApp.ScenePresenter3000(BattleShipFxApp.SceneLoader3000("/at/fhj/swengb/apps/battleship/jfx/screen2.fxml"),BattleShipFxApp.FirstStage3000)
 }
