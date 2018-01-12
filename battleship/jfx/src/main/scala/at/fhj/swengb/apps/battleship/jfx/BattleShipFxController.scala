@@ -22,7 +22,7 @@ class BattleShipFxController extends Initializable {
   def WidthReader3000(width: Int): Int = battleGroundGridPane.getColumnConstraints.get(width).getPrefWidth.toInt
   def HeightReader3000(height: Int): Int = battleGroundGridPane.getRowConstraints.get(height).getPrefHeight.toInt
 
-  
+
   def Initiator3000(game: BattleShipGame, ClickChecker3000: List[BattlePos]): Unit = {
     Game = game
     battleGroundGridPane.getChildren.clear()

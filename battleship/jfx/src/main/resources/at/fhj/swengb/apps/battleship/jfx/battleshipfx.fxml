@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -17,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="Borderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="752.0" prefHeight="540.0" prefWidth="752.0" stylesheets="@battleshipfx.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhj.swengb.apps.battleship.jfx.BattleShipFxController">
+<BorderPane id="Borderpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="752.0" prefHeight="540.0" prefWidth="752.0" stylesheets="@battleshipfx.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.fhj.swengb.apps.battleship.jfx.BattleShipFxController">
     <right>
 
 
@@ -27,22 +24,12 @@
             <font>
                 <Font name="Krungthep" size="34.0" />
             </font>
-            <graphic>
-                <ImageView fitHeight="37.0" fitWidth="39.0" preserveRatio="true" translateX="69.5" translateY="-12.0">
-                    <image>
-                        <Image url="@crosshair.png" />
-                    </image>
-                    <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                    </cursor>
-                </ImageView>
-            </graphic>
-         <BorderPane.margin>
-            <Insets top="10.0" />
-         </BorderPane.margin>
-         <effect>
-            <DropShadow />
-         </effect>
+            <BorderPane.margin>
+                <Insets top="10.0" />
+            </BorderPane.margin>
+            <effect>
+                <DropShadow />
+            </effect>
         </Label>
     </top>
     <right>
@@ -78,6 +65,17 @@
                     <effect>
                         <InnerShadow color="#000000b2" height="11.5" radius="4.625" width="9.0" />
                     </effect></Button>
+            <Button fx:id="work" mnemonicParsing="false" onAction="#work" prefHeight="35.0" prefWidth="132.0" text="Does it Work?">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
             </children>
         </VBox>
     </right>
