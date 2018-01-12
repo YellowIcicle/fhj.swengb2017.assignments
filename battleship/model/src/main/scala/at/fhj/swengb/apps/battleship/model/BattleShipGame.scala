@@ -8,7 +8,7 @@ case class BattleShipGame(battleField: BattleField,
                           updateSlider: Int => Unit,
                           getCellWidth: Int => Double,
                           getCellHeight: Int => Double,
-                         ) {
+                          ) {
 
   /**
     * remembers which vessel was hit at which position

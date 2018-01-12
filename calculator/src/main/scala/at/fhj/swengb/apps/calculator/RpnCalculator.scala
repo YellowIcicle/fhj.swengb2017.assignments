@@ -14,7 +14,17 @@ object RpnCalculator {
     * @param s a string representing a calculation, for example '1 2 +'
     * @return
     */
-  def apply(s: String): Try[RpnCalculator] = ???
+  def apply(s: String): Try[RpnCalculator] = {
+    if (s == "") Try(RpnCalculator()) // <-- not copied
+    else {
+      /*val stack: List[Op] = s.split(' ').map(e => Op(e)).toList
+      var operation: Try[RpnCalculator] = Try(RpnCalculator())
+      stack.foreach(e => operation = operation.get.push(e))
+      operation  <-- copied*/
+      ???
+    }
+    }
+
 
 }
 
@@ -32,7 +42,9 @@ case class RpnCalculator(stack: List[Op] = Nil) {
     * @param op
     * @return
     */
-  def push(op: Op): Try[RpnCalculator] = ???
+  def push(op: Op): Try[RpnCalculator] = {
+    ???
+  }
 
   /**
     * Pushes val's on the stack.
@@ -42,7 +54,9 @@ case class RpnCalculator(stack: List[Op] = Nil) {
     * @param op
     * @return
     */
-  def push(op: Seq[Op]): Try[RpnCalculator] = ???
+  def push(op: Seq[Op]): Try[RpnCalculator] = {
+    ???
+  }
 
   /**
     * Returns an tuple of Op and a RevPolCal instance with the remainder of the stack.

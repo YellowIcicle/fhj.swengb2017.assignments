@@ -21,7 +21,7 @@ object BattleShipProtocol {
     BattlePos(Position3000.getColumn, Position3000.getRow)
   }
 
-  //Converter: Vessel => Protobuf Vessel
+ //Converter: Vessel => Protobuf Vessel
   def convert(vessel: at.fhj.swengb.apps.battleship.model.Vessel): Vessel = {
     Vessel.newBuilder()
       .setAlignment(vessel.direction match {

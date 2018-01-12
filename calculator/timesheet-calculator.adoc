@@ -7,16 +7,24 @@
 | Hours
 | Description
 
-| 29.11.17
-| 1
-| Review of this and that
-
-| 30.11.17
-| 5
-| implemented css
-
-| 11.07.17
+| 06.12.17
 | 2
-| fixed bugs
+| Review of Scene Builder and starting with the Design
+
+| 08.12.17
+| 2
+| Trying to understand the given code
+
+| 08.12.17
+| 0.5
+| Researching how to use css
+
+| 08.12.17
+| 4
+| Implement CSS and redesign Calculator in Scene Builder
+
+| 11.12.17
+| 1.5
+| Again trying to code functions and finally giving up
 
 |===
